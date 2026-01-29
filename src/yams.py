@@ -18,3 +18,8 @@ def is_square(dice: list[int]) -> bool:
 def is_yams(dice: list[int]) -> bool:
     counts = Counter(dice)
     return 5 in counts.values()
+
+
+def is_full(dice: list[int]) -> bool:
+    counts = sorted(Counter(dice).values())
+    return counts == [2, 3]
