@@ -140,3 +140,7 @@ def test_score_game_all_chance(rolls, expected):
 )
 def test_example_from_subject(rolls, expected):
     assert score_game(rolls) == 30 + 28 + 7
+
+
+def test_score_game_empty():
+    assert score_game([]) == 0
