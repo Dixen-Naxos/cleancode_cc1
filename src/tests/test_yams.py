@@ -105,14 +105,26 @@ def test_score_game_single_roll(roll, expected):
 
 @pytest.mark.parametrize(
     "rolls, expected",
-    [
+    [([
         [1, 1, 1, 2, 2],
         [4, 4, 4, 4, 2],
         [1, 2, 3, 4, 5],
         [1, 1, 1, 1, 1],
         [2, 2, 2, 3, 4],
         [1, 2, 3, 4, 6],
-    ], 30 + 35 + 40 + 50 + 28 + 16
+    ], 30 + 35 + 40 + 50 + 28 + 16)]
 )
 def test_score_game_multiple_rolls(rolls, expected):
+    assert score_game(rolls) == expected
+
+
+@pytest.mark.parametrize(
+    "rolls, expected",
+    [([
+        [1, 3, 4, 6, 2],
+        [2, 5, 6, 1, 3],
+        [1, 1, 2, 3, 6],
+    ], 16 + 17 + 13)]
+)
+def test_score_game_all_chance(rolls, expected):
     assert score_game(rolls) == expected
