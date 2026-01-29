@@ -1,5 +1,6 @@
 import pytest
-from src.yams import score_chance
+from src.yams import score_chance, is_brelan
+
 
 @pytest.mark.parametrize(
     "dice, expected",
@@ -11,3 +12,14 @@ from src.yams import score_chance
 )
 def test_chance_score(dice, expected):
     assert score_chance(dice) == expected
+
+@pytest.mark.parametrize(
+    "dice, expected",
+    [
+        ([1, 1, 1, 2, 3], True),
+        ([2, 2, 2, 2, 3], True),
+        ([1, 1, 2, 2, 3], False),
+    ]
+)
+def test_is_brelan(dice, expected):
+    assert is_brelan(dice) is expected
