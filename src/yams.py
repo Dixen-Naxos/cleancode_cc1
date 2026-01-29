@@ -51,13 +51,15 @@ def best_figure(dice: list[int], available: set[Figure]) -> Figure:
 
 
 def score_game(rolls: list[list[int]]) -> int:
+    available_figures = set(Figure)
     total = 0
 
     for roll in rolls:
-        figure = best_figure(roll, set(Figure))
+        figure = best_figure(roll, available_figures)
         if figure is Figure.CHANCE:
             total += score_chance(roll)
         else:
             total += figure.value
+            available_figures.discard(figure)
 
     return total
