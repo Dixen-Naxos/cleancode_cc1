@@ -51,6 +51,7 @@ def test_is_square(dice, expected):
 def test_is_yams(dice, expected):
     assert is_yams(dice) is expected
 
+
 @pytest.mark.parametrize(
     "dice, expected",
     [
@@ -61,6 +62,7 @@ def test_is_yams(dice, expected):
 )
 def test_is_full(dice, expected):
     assert is_full(dice) is expected
+
 
 @pytest.mark.parametrize(
     "dice, expected",
@@ -73,6 +75,7 @@ def test_is_full(dice, expected):
 def test_is_straight(dice, expected):
     assert is_straight(dice) is expected
 
+
 @pytest.mark.parametrize(
     "dice, available, expected",
     [
@@ -84,6 +87,7 @@ def test_is_straight(dice, expected):
 def test_best_figure_priority_yams(dice, available, expected):
     assert best_figure(dice, available) == expected
 
+
 @pytest.mark.parametrize(
     "roll, expected",
     [
@@ -92,8 +96,23 @@ def test_best_figure_priority_yams(dice, available, expected):
         ([4, 4, 4, 4, 2], 35),
         ([1, 1, 1, 2, 2], 30),
         ([3, 3, 3, 4, 5], 28),
-        ([1, 2, 3, 4, 6], sum([1,2,3,4,6])),
+        ([1, 2, 3, 4, 6], sum([1, 2, 3, 4, 6])),
     ]
 )
 def test_score_game_single_roll(roll, expected):
     assert score_game([roll]) == expected
+
+
+@pytest.mark.parametrize(
+    "rolls, expected",
+    [
+        [1, 1, 1, 2, 2],
+        [4, 4, 4, 4, 2],
+        [1, 2, 3, 4, 5],
+        [1, 1, 1, 1, 1],
+        [2, 2, 2, 3, 4],
+        [1, 2, 3, 4, 6],
+    ], 30 + 35 + 40 + 50 + 28 + 16
+)
+def test_score_game_multiple_rolls(rolls, expected):
+    assert score_game(rolls) == expected
