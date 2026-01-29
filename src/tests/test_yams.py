@@ -1,7 +1,7 @@
 import pytest
 
 from src.figure import Figure
-from src.yams import score_chance, is_brelan, is_square, is_yams, is_full, is_straight, best_figure
+from src.yams import score_chance, is_brelan, is_square, is_yams, is_full, is_straight, best_figure, score_game
 
 
 @pytest.mark.parametrize(
@@ -84,3 +84,16 @@ def test_is_straight(dice, expected):
 def test_best_figure_priority_yams(dice, available, expected):
     assert best_figure(dice, available) == expected
 
+@pytest.mark.parametrize(
+    "roll, expected",
+    [
+        ([1, 1, 1, 1, 1], 50),
+        ([2, 3, 4, 5, 6], 40),
+        ([4, 4, 4, 4, 2], 35),
+        ([1, 1, 1, 2, 2], 30),
+        ([3, 3, 3, 4, 5], 28),
+        ([1, 2, 3, 4, 6], sum([1,2,3,4,6])),
+    ]
+)
+def test_score_game_single_roll(roll, expected):
+    assert score_game([roll]) == expected
