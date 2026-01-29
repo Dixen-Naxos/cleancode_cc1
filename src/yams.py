@@ -23,3 +23,7 @@ def is_yams(dice: list[int]) -> bool:
 def is_full(dice: list[int]) -> bool:
     counts = sorted(Counter(dice).values())
     return counts == [2, 3]
+
+def is_straight(dice: list[int]) -> bool:
+    return sorted(dice) in ([1, 2, 3, 4, 5], [2, 3, 4, 5, 6])
+

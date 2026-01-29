@@ -1,5 +1,5 @@
 import pytest
-from src.yams import score_chance, is_brelan, is_square, is_yams, is_full
+from src.yams import score_chance, is_brelan, is_square, is_yams, is_full, is_straight
 
 
 @pytest.mark.parametrize(
@@ -59,3 +59,15 @@ def test_is_yams(dice, expected):
 )
 def test_is_full(dice, expected):
     assert is_full(dice) is expected
+
+@pytest.mark.parametrize(
+    "dice, expected",
+    [
+        ([1, 2, 3, 4, 5], True),
+        ([2, 3, 4, 5, 6], True),
+        ([1, 2, 3, 4, 6], False),
+    ]
+)
+def test_is_straight(dice, expected):
+    assert is_straight(dice) is expected
+
