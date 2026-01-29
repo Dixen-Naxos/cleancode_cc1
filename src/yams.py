@@ -26,8 +26,10 @@ def is_full(dice: list[int]) -> bool:
     counts = sorted(Counter(dice).values())
     return counts == [2, 3]
 
+
 def is_straight(dice: list[int]) -> bool:
     return sorted(dice) in ([1, 2, 3, 4, 5], [2, 3, 4, 5, 6])
+
 
 def best_figure(dice: list[int], available: set[Figure]) -> Figure:
     if Figure.YAMS in available and is_yams(dice):
@@ -46,3 +48,16 @@ def best_figure(dice: list[int], available: set[Figure]) -> Figure:
         return Figure.BRELAN
 
     return Figure.CHANCE
+
+
+def score_game(rolls: list[list[int]]) -> int:
+    total = 0
+
+    for roll in rolls:
+        figure = best_figure(roll, set(Figure))
+        if figure is Figure.CHANCE:
+            total += score_chance(roll)
+        else:
+            total += figure.value
+
+    return total
