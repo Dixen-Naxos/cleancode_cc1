@@ -1,5 +1,7 @@
 import pytest
-from src.yams import score_chance, is_brelan, is_square, is_yams, is_full, is_straight
+
+from src.figure import Figure
+from src.yams import score_chance, is_brelan, is_square, is_yams, is_full, is_straight, best_figure
 
 
 @pytest.mark.parametrize(
@@ -70,4 +72,15 @@ def test_is_full(dice, expected):
 )
 def test_is_straight(dice, expected):
     assert is_straight(dice) is expected
+
+@pytest.mark.parametrize(
+    "dice, available, expected",
+    [
+        ([1, 1, 1, 1, 1], {Figure.YAMS, Figure.SQUARE, Figure.BRELAN}, Figure.YAMS),
+        ([2, 3, 4, 5, 6], {Figure.YAMS, Figure.SQUARE, Figure.STRAIGHT}, Figure.STRAIGHT),
+        ([1, 2, 3, 4, 6], {Figure.YAMS, Figure.CHANCE, Figure.STRAIGHT}, Figure.CHANCE),
+    ]
+)
+def test_best_figure_priority_yams(dice, available, expected):
+    assert best_figure(dice, available) == expected
 
